@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACH</title>
+</head>
+
+<body class="w-full h-screen bg-[#1a1a1a]">
+    <script src="../src/js/tailwind.js"></script>
+    <div class="appBar w-full bg-[#111111]">
+        a
+    </div>
+
+    <style>
+        .progress-container {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform: rotate(-135deg);
+        }
+
+        .progress-bar-background,
+        .progress-bar {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke-width: 20;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            position: absolute;
+        }
+
+        .progress-bar-background {
+            stroke: #ecf0f1;
+        }
+
+        .progress-bar {
+            stroke: #3498db;
+            stroke-dasharray: 565.48;
+            stroke-dashoffset: 0;
+            /* Tam dolu olması için 0 */
+            transition: stroke-dashoffset 0.5s ease;
+            /* Animasyon ekledim */
+        }
+    </style>
+</body>
+
+</html>

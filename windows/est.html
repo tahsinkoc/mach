@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* CSS ile dairenin kenarını ve içini doldurmak için */
+        svg {
+            transform: rotate(-180deg);
+        }
+
+        .circle {
+            fill: none;
+            stroke: #3498db;
+            stroke-width: 5;
+            stroke-dasharray: 20, 6;
+            /* Çizginin uzunluğu (dairenin çevresi) */
+            stroke-dashoffset: calc(252 - (50 / 100) * 252);
+            /* Yarım çemberi çizmek için yarı uzunluk */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SVG ile daire oluşturmak -->
+    <svg width="100" height="100">
+        <circle cx="50" cy="50" r="40" class="circle" />
+    </svg>
+</body>
+
+</html>
