@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .st0, .st1 {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 2s linear forwards;
+        }
+        svg {
+           width: 40rem;
+           transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <svg version="1.1" id="katman_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 595.28 841.89" style="enable-background:new 0 0 595.28 841.89;" xml:space="preserve">
+    <style type="text/css">
+        .st0{fill:#FFFFFF;stroke:#E30613;stroke-width:20;stroke-miterlimit:10;}
+        .st1{fill:#FFFFFF;stroke:#9D9D9C;stroke-width:20;stroke-miterlimit:10;}
+    </style>
+    <path class="st0" d="M158.81,287.36c-42.42,0-76.8-34.39-76.8-76.8s34.39-76.8,76.8-76.8"/>
+    <!-- <path class="st1" d="M158.81,133.76c42.42,0,76.8,34.39,76.8,76.8s-34.39,76.8-76.8,76.8"/> -->
+    </svg>
+    <script>
+        const paths = document.querySelectorAll('.st0, .st1');
+        paths.forEach(path => {
+            const length = path.getTotalLength();
+            console.log(length);
+            path.style.transition = path.style.WebkitTransition = 'none';
+            path.style.strokeDasharray = length + ' ' + length;
+            path.style.strokeDashoffset = length;
+            path.getBoundingClientRect();
+            path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 2s ease-in-out';
+            path.style.strokeDashoffset = '0';
+        });
+
+        // setInterval(() => {
+        //     let offset = Math.random(100, 241.30572509765625) * 241.30572509765625
+        //     console.log(offset);
+        //     paths[0].style.strokeDashoffset = offset
+        // }, 2000)
+
+    </script>
+</body>
+</html>

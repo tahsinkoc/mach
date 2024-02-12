@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        svg {
+            width: 30rem;
+            height: 30rem;
+            background: #ddd;
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+    </style>
+</head>
+<body>
+    <!-- <?xml version="1.0" encoding="utf-8"?> -->
+<!-- Generator: Adobe Illustrator 28.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- <svg version="1.1" id="katman_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-100 -200 1200 1200" style="enable-background:new -200 -200 1200 1200;" xml:space="center">
+<style type="text/css">
+	.st0{fill:none;stroke:#E30613;stroke-width:100;stroke-miterlimit:10;}
+</style>
+<defs>
+    <filter id="glow">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="50" />
+    </filter>
+</defs>
+    <path class="st0" d="M673.02,914.85C835.52,847.26,949.78,686.97,949.78,500c0-248.04-201.07-449.11-449.11-449.11H500
+        C251.96,50.89,50.89,251.96,50.89,500c0,186.97,114.26,347.26,276.76,414.85"/>
+<path class="st0" filter="url(#glow)" d="M673.02,914.85C835.52,847.26,949.78,686.97,949.78,500c0-248.04-201.07-449.11-449.11-449.11H500
+	C251.96,50.89,50.89,251.96,50.89,500c0,186.97,114.26,347.26,276.76,414.85"/>
+</svg> -->
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="katman_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke-width:60;stroke-miterlimit:10;}
+    .st4{
+        <!-- stroke-width: 70; -->
+    }
+    .std{
+        fill:none;stroke:#151515; width: 60px;stroke-miterlimit:10;
+    }
+</style>
+
+  <!-- <rect x="0" y="0" width="1" height="1" fill="url(#gradient)"/> -->
+<defs>
+    <filter id="glow"  x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="50" />
+    </filter>
+</defs>
+<!-- <path class="std" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
+c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2"/> -->
+<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="rgba(255,0,0,1)"/>
+    <stop offset="50%" stop-color="rgba(250,255,37,1)"/>
+    <stop offset="70%" stop-color="rgba(186,255,32,1)"/>
+    <stop offset="100%" stop-color="rgba(27,254,27,1)"/>
+  </linearGradient>
+<path class="st0" stroke="url(#gradient)" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
+	c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2"/>
+    <path  filter="url(#glow)" stroke="url(#gradient)" class="st0 st4" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
+	c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2"/>
+   
+</svg>
+
+<script>
+    const paths = document.querySelectorAll('.st0, .st1');
+    paths.forEach(path => {
+        const length = path.getTotalLength();
+        console.log(length);
+        path.style.transition = path.style.WebkitTransition = 'none';
+        path.style.strokeDasharray = length + ' ' + length;
+        path.style.strokeDashoffset = length;
+        path.getBoundingClientRect();
+        path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 2s ease-in-out';
+        path.style.strokeDashoffset = '0';
+    });
+
+    setInterval(() => {
+        let offset = Math.random(100, paths[0].getTotalLength()) * paths[0].getTotalLength()
+        console.log(offset);
+        paths[0].style.strokeDashoffset = offset
+        paths[1].style.strokeDashoffset = offset
+    }, 2000)
+
+</script>
+</body>
+</html>

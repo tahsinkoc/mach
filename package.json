@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^28.2.2"
+    "@electron/remote": "^2.1.2",
+    "blob-to-buffer": "^1.2.9",
+    "electron": "^28.2.2",
+    "ws": "^8.16.0"
   }
 }
