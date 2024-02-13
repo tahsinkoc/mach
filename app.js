@@ -12,7 +12,7 @@ server.on('connection', (socket) => {
     clients.push(socket)
     // console.log(clients);
     socket.on('message', (message) => {
-        // console.log(`Received message: ${message}`);
+        console.log(`Received message: ${message}`);
 
         // Broadcast the message to all connected clients
         // clients.forEach((client) => {
