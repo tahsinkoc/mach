@@ -3,9 +3,14 @@ const { remote, ipcRenderer } = require('electron');
 const blobToBuffer = require('blob-to-buffer');
 const si = require('systeminformation');
 
+let colors = {
+  nvidia: '#13C500',
+  amd : 'red',
+  intel: '#209EE7'
+}
 
 si.mem().then(item => {
-  console.log(item);
+  // console.log(item);
 })
 
 document.getElementById('minimize-btn').addEventListener('click', () => {
@@ -27,7 +32,10 @@ const events = {
         indicator.drawIndicator('voltage-val', 'voltage', parsed['Core (SVI2 TFN)'], parsed['Core (SVI2 TFN)Max'], 'v')
       } else {
         let colored = '#209EE7'
-        indicator.drawIndicator('voltage-val', 'voltage', Math.floor(parsed['CPU Core']), Math.floor(parsed['CPU CoreMax']), 'v')
+        console.log(Math.floor(parsed['CPU Core']));
+        // indicator.drawIndicator('voltage-val', 'voltage', Math.floor(parsed['CPU Core']), Math.floor(parsed['CPU CoreMax']), 'v')
+        indicator.drawDottedVoltageIndicator('voltage-val', 'voltage', Math.floor(parsed['CPU Core']), Math.floor(parsed['CPU CoreMax']), 'v', document.getElementsByClassName('al'), colors.intel)
+        indicator.setCpuTheme('#209EE7', hardwareName)
       }
     },
     3: function render(parsed) {
@@ -61,8 +69,11 @@ const events = {
         indicator.drawIndicator('usage-val', 'usage', Math.floor(parsed['CPU Total']), 100, '%')
       } else {
         let colored = '#209EE7'
+        indicator.drawDottedIndicator('usage-val', 'usage', Math.floor(parsed['CPU Total']), 100, '%', document.getElementsByClassName('at'), colors.intel)
         indicator.setCpuTheme('#209EE7', hardwareName)
-        indicator.drawIndicator('usage-val', 'usage', Math.floor(parsed['CPU Total']), 100, '%')
+        // indicator.drawIndicator('usage-val', 'usage', Math.floor(parsed['CPU Total']), 100, '%')
+        // let paths = document.getElementsByClassName('at')
+        
       }
     }
   },
@@ -72,9 +83,11 @@ const events = {
       if (hardwareName.includes('AMD')) {
         indicator.setGpuTheme('red', hardwareName)
       }else {
-        indicator.setGpuTheme('#13C500', hardwareName)
         // indicator.drawIndicator('voltage-val', 'voltage', parsed['GPU Core'], 1.600, 'v')
-        indicator.drawGpuIndicator('voltage-val', 'voltage', parsed['GPU Package'], parsed['GPU PackageMax'], 'w')
+        indicator.drawDottedGpuVoltageIndicator('gvoltage-val', 'gvoltage', Math.floor(parsed['GPU Package']), Math.floor(400), 'w', document.getElementsByClassName('alg'), colors.nvidia)
+        indicator.setGpuTheme('#13C500', hardwareName)
+
+        // indicator.drawGpuIndicator('gvoltage-val', 'gvoltage', parsed['GPU Package'], parsed['GPU PackageMax'], 'w')
       }
     },
     3:function render(parsed) {
@@ -96,9 +109,11 @@ const events = {
         indicator.setCpuTheme('red', hardwareName)
         indicator.drawIndicator('usage-val', 'usage', Math.floor(parsed['CPU Total']), parsed['GPU Core'], '%')
       } else {
-        indicator.setGpuTheme('#13C500', hardwareName)
+        // indicator.setGpuTheme('#13C500', hardwareName)
         // indicator.drawIndicator('usage-val', 'usage', Math.floor(parsed['CPU Total']), 100, '%')
-        indicator.drawGpuIndicator('usage-val', 'usage', Math.floor(parsed['GPU Core']), parsed['GPU CoreMax'], '%')
+        indicator.drawDottedGpuVoltageIndicator('gusage-val', 'gusage', Math.floor(parsed['GPU Core']), 100, '%', document.getElementsByClassName('atg'), colors.nvidia)
+        indicator.setGpuTheme('#13C500', hardwareName)
+        // indicator.drawGpuIndicator('usage-val', 'usage', Math.floor(parsed['GPU Core']), parsed['GPU CoreMax'], '%')
       }
     }
   }
@@ -114,6 +129,8 @@ class Incicator {
   setCpuTheme(color, cpuModel) {
     let cpuStrokes = document.getElementsByClassName('cpuTheme');
     let cpuName = document.getElementById('cpuName');
+    let line = document.getElementById('line');
+    line.style.stroke = color;
     cpuName.style.color = color
     cpuName.textContent = cpuModel;
     for (let index = 0; index < cpuStrokes.length; index++) {
@@ -145,16 +162,81 @@ class Incicator {
     element.style.strokeDashoffset = length - value / max * length;
     glow.style.strokeDashoffset = length - value / max * length;
   }
-
+  drawDottedIndicator(textId, id, value, max, icon, paths, color) {
+    let element = document.getElementById(id)
+    let glow = document.getElementById(id + 'g')
+    let valText = document.getElementById(textId)
+    valText.textContent = value + icon
+    for(let index = 0; index < paths.length; index++){
+      const element = paths[index];
+      element.style.fill = 'transparent'
+      element.transition = 'all 1s ease-in-out'
+    }
+    for (let index = 0; index < value / 5; index++) {
+      const element = paths[index];
+      element.style.fill = color
+      element.transition = 'all 1s ease-in-out'
+    }
+  }
+  drawDottedVoltageIndicator(textId, id, value, max, icon, paths, color) {
+    let element = document.getElementById(id)
+    let glow = document.getElementById(id + 'g')
+    let valText = document.getElementById(textId)
+    valText.textContent = value + icon
+    let neval = value / max * 20
+    for(let index = 0; index < paths.length; index++){
+      const element = paths[index];
+      element.style.fill = 'transparent'
+      element.transition = 'all 1s ease-in-out'
+    }
+    for (let index = 0; index < neval; index++) {
+      const element = paths[index];
+      element.style.fill = color
+      element.transition = 'all 1s ease-in-out'
+    }
+  }
   drawGpuIndicator(textId, id, value, max, icon) {
     let element = document.getElementById('g'+id)
     let glow = document.getElementById('g'+ id + 'g')
     let valText = document.getElementById('g'+textId)
     let length = element.getTotalLength();
     valText.textContent = value + icon
-    // console.log(value / 100 * 100);
     element.style.strokeDashoffset = length - value / max * length;
     glow.style.strokeDashoffset = length - value / max * length;
+  }
+  drawDottedGpuIndicator(textId, id, value, max, icon, paths, color) {
+    let element = document.getElementById(id)
+    let glow = document.getElementById(id + 'g')
+    let valText = document.getElementById(textId)
+    valText.textContent = value + icon
+    for(let index = 0; index < paths.length; index++){
+      const element = paths[index];
+      element.style.fill = 'transparent'
+      element.transition = 'all 1s ease-in-out'
+    }
+    for (let index = 0; index < value / 5; index++) {
+      const element = paths[index];
+      element.style.fill = color
+      element.transition = 'all 1s ease-in-out'
+    }
+  }
+
+  drawDottedGpuVoltageIndicator(textId, id, value, max, icon, paths, color){
+    let element = document.getElementById(id)
+    let glow = document.getElementById(id + 'g')
+    let valText = document.getElementById(textId)
+    valText.textContent = value + icon
+    let neval = value / max * 20
+    for(let index = 0; index < paths.length; index++){
+      const element = paths[index];
+      element.style.fill = 'transparent'
+      element.transition = 'all 1s ease-in-out'
+    }
+    for (let index = 0; index < neval; index++) {
+      const element = paths[index];
+      element.style.fill = color
+      element.transition = 'all 1s ease-in-out'
+    }
   }
 
   innitializeIndicator() {
@@ -167,7 +249,7 @@ class Incicator {
       path.style.strokeDasharray = length + ' ' + length;
       path.style.strokeDashoffset = length;
       path.getBoundingClientRect();
-      path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 2s ease-in-out';
+      path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 1s ease-in-out';
       path.style.strokeDashoffset = '0';
     });
   }
