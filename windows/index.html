@@ -90,7 +90,7 @@
                     </style>
                     <defs>
                         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="50" />
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="20" />
                         </filter>
                     </defs>
                     <path class="st0 cpuTheme" id="usage" d="M780.49,509.8c0-7.71-0.31-15.34-0.92-22.89c-0.61-7.55-1.52-15.02-2.72-22.39c-1.16-7.16-2.6-14.23-4.29-21.2
@@ -118,8 +118,24 @@
         c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
                 </svg>
                 <div class="flex flex-col shadow-black absolute px-8 py-2 cpuTheme text-center">
-                    <div id="usage-val" class="shadow-inner shadow-black px-8 py-2">0</div>
-                    <div id="voltage-val" class="my-2 border-black shadow-inner shadow-black px-8 py-2">0</div>
+                    <div class="my-2 border-black shadow-inner shadow-black px-2 py-2 flex items-center justify-center flex-row">
+                        <div>
+                            <img class="w-7 h-7" src="../src/assets/CPU.svg" alt="">
+                            <!-- <i class="fa-solid fa-bolt"></i> -->
+                        </div>
+                        <div id="usage-val" class="ml-2">
+
+                        </div>
+                    </div>
+                    <div class="my-2 border-black shadow-inner shadow-black px-2 py-2 flex items-center justify-center flex-row">
+                        <div>
+                            <img class="w-7 h-7 mr-5" src="../src/assets/aaa.svg" alt="">
+                            <!-- <i class="fa-solid fa-bolt"></i> -->
+                        </div>
+                        <div id="voltage-val">
+
+                        </div>
+                    </div>
                 </div>
                 <div class="text-[#209EE7] cpuTheme text-xl absolute bottom-[1.5rem]" id="clock-val">
                     0
@@ -128,8 +144,9 @@
         </div>
         <div class="w-6/12 ml-2">
             <div
+                id="gpuName"
                 class="w-full bg-[#2D2D2D] text-center px-4 rounded-sm py-1 my-2 text-[#13C500] shadow-inner shadow-black">
-                NVIDIA GeForce RTX 4080 Super
+                
             </div>
             <div class="w-full flex items-center justify-center flex-col relative">
                 <?xml version="1.0" encoding="utf-8"?>
@@ -157,10 +174,10 @@
                     </style>
                     <defs>
                         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="50" />
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="20" />
                         </filter>
                     </defs>
-                    <path class="st00" d="M780.49,509.8c0-7.71-0.31-15.34-0.92-22.89c-0.61-7.55-1.52-15.02-2.72-22.39c-1.16-7.16-2.6-14.23-4.29-21.2
+                    <path class="st00 gpuTheme" id="gusage" d="M780.49,509.8c0-7.71-0.31-15.34-0.92-22.89c-0.61-7.55-1.52-15.02-2.72-22.39c-1.16-7.16-2.6-14.23-4.29-21.2
         c-1.7-6.97-3.65-13.83-5.86-20.59c-2.77-8.5-5.94-16.81-9.49-24.93s-7.46-16.04-11.73-23.73c-4.12-7.44-8.58-14.66-13.34-21.67
         c-4.76-7-9.83-13.78-15.19-20.31c-5.56-6.78-11.43-13.29-17.6-19.51c-6.16-6.22-12.61-12.16-19.33-17.78
         c-8.27-6.92-16.95-13.38-25.99-19.33s-18.45-11.39-28.18-16.27c-7.47-3.75-15.13-7.18-22.96-10.27c-7.83-3.09-15.84-5.83-24-8.21
@@ -169,7 +186,7 @@
         c-8.53,5.05-16.77,10.53-24.68,16.42s-15.51,12.19-22.75,18.87c-9.58,8.83-18.54,18.32-26.81,28.4
         c-8.27,10.08-15.86,20.74-22.68,31.92c-7.9,12.94-14.78,26.58-20.52,40.79c-5.75,14.21-10.36,29.01-13.73,44.27
         c-2.16,9.78-3.81,19.74-4.92,29.88c-1.11,10.13-1.68,20.42-1.68,30.85" />
-                    <path class="st00" d="M780.49,514.59c0,7.71-0.31,15.34-0.92,22.89c-0.61,7.55-1.52,15.02-2.72,22.39c-1.16,7.16-2.6,14.23-4.29,21.2
+                    <path class="st00 gpuTheme" id="gvoltage" d="M780.49,514.59c0,7.71-0.31,15.34-0.92,22.89c-0.61,7.55-1.52,15.02-2.72,22.39c-1.16,7.16-2.6,14.23-4.29,21.2
         c-1.7,6.97-3.65,13.83-5.86,20.59c-2.77,8.5-5.94,16.81-9.49,24.93c-3.54,8.12-7.46,16.04-11.73,23.73
         c-4.12,7.44-8.58,14.66-13.34,21.67c-4.76,7-9.83,13.78-15.19,20.31c-5.56,6.78-11.43,13.29-17.6,19.51
         c-6.16,6.22-12.61,12.16-19.33,17.78c-8.27,6.92-16.95,13.38-25.99,19.33s-18.45,11.39-28.18,16.27
@@ -179,12 +196,16 @@
         c-7.92-5.89-15.51-12.19-22.75-18.87c-9.58-8.83-18.54-18.32-26.81-28.4c-8.27-10.08-15.86-20.74-22.68-31.92
         c-7.9-12.94-14.78-26.58-20.52-40.79c-5.75-14.21-10.36-29.01-13.73-44.27c-2.16-9.78-3.81-19.74-4.92-29.88
         c-1.11-10.13-1.68-20.42-1.68-30.85" />
-                    <path class="st11" id="tempg" filter="url(#glow)" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
+                    <path class="st11 gpuTheme" id="gclockg" filter="url(#glow)" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
         c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
-                    <path class="st11" id="temp" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
+                    <path class="st11 gpuTheme" id="gclock" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
         c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
                 </svg>
-                <div class="text-[#13C500] text-2xl absolute bottom-[1.7rem]" id="temp-val">
+                <div class="flex flex-col shadow-black absolute py-2 gpuTheme text-center">
+                    <div id="gusage-val" class="shadow-inner shadow-black px-2 py-2 gpuTheme">0</div>
+                    <div id="gvoltage-val" class="my-2 border-black shadow-inner shadow-black px-2 py-2 gpuTheme">0</div>
+                </div>
+                <div class="text-[#13C500] gpuTheme text-xl absolute bottom-[1.5rem] gpuTheme" id="gclock-val">
                     0
                 </div>
             </div>
@@ -238,12 +259,12 @@
         c-7.92-5.89-15.51-12.19-22.75-18.87c-9.58-8.83-18.54-18.32-26.81-28.4c-8.27-10.08-15.86-20.74-22.68-31.92
         c-7.9-12.94-14.78-26.58-20.52-40.79c-5.75-14.21-10.36-29.01-13.73-44.27c-2.16-9.78-3.81-19.74-4.92-29.88
         c-1.11-10.13-1.68-20.42-1.68-30.85" />
-            <path class="st111" id="tempg" filter="url(#glow)" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
+            <path class="st111" id="memg" filter="url(#glow)" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
         c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
-            <path class="st111" id="temp" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
+            <path class="st111" id="mem" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
         c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
         </svg>
-        <div class="text-[#c57d00] text-2xl absolute" id="temp-val">
+        <div class="text-[#c57d00] text-2xl absolute" id="mem-val">
             0
         </div>
     </div>

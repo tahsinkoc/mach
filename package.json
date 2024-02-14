@@ -12,6 +12,7 @@
     "@electron/remote": "^2.1.2",
     "blob-to-buffer": "^1.2.9",
     "electron": "^28.2.2",
+    "systeminformation": "^5.21.24",
     "ws": "^8.16.0"
   }
 }

@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron/main')
 const WebSocket = require('ws')
 const { WebSocketServer } = require('ws')
 const path = require('node:path')
+const si = require('systeminformation');
 
 
 
@@ -9,10 +10,13 @@ const server = new WebSocketServer({ port: 3000 })
 const clients = []
 server.on('connection', (socket) => {
     console.log('Client connected');
+    // si.memLayout().then(item => {
+    //     console.log(item);
+    // })
     clients.push(socket)
     // console.log(clients);
     socket.on('message', (message) => {
-        console.log(`Received message: ${message}`);
+        // console.log(`Received message: ${message}`);
 
         // Broadcast the message to all connected clients
         // clients.forEach((client) => {
@@ -37,8 +41,10 @@ console.log('WebSocket server is running on port 3000');
 function createWindow() {
     const win = new BrowserWindow({
         minWidth: 860,
+        maxWidth: 860,
         height: 981.5,
         minHeight: 981.5,
+        maxHeight: 981.5,
         webPreferences: {
             // preload: path.join(__dirname, 'preload.js'),
             devTools: true,
