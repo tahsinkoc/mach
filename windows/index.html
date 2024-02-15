@@ -6,21 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MACH</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap')
+        /* @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap') */
     </style>
 
     <style>
-        * {
-            /* font-family: "Orbitron", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: <weight>;
-            font-style: normal; */
-            font-family: "Roboto Mono", monospace;
-            font-optical-sizing: auto;
-            font-weight: <weight>;
-            font-style: normal;
+        @font-face {
+            font-family: 'impact';
+            src: url('../src/assets/1x/impact.ttf');
         }
 
+        * {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+        .atg, .alg, .al, .at {
+            transition: all .8s ease-in-out;
+        }
+        #cpuTempBar, #gpuTempBar {
+            transition: all 1s ease-in-out;
+        }
         .a {
             /* background-color: #209EE7; */
             transform: scaleX(-1);
@@ -80,8 +83,7 @@
     </div>
     <div class="contain flex items-center justify-between w-full px-4 mt-14">
         <div class="w-6/12 mr-2">
-            <div class="w-full bg-[#2D2D2D] text-center px-4 rounded-sm py-1 my-2 text-[#209EE7] shadow-inner shadow-black"
-                id="cpuName">
+            <div class="w-full  text-center px-4 text-2xl rounded-sm py-1 my-2 text-[#209EE7] mt-14" id="cpuName">
 
             </div>
             <div class="w-full flex items-center justify-center flex-col relative">
@@ -232,23 +234,19 @@
         c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
                 </svg>
                 <div class="flex flex-col shadow-black absolute px-8 py-2 cpuTheme text-center">
-                    <div
-                        class="my-2 border-black  px-2 py-2 flex items-center justify-center flex-row">
-                        <div>
-                            <img class="w-7 h-7" src="../src/assets/CPU.png" alt="">
-                            <!-- <i class="fa-solid fa-bolt"></i> -->
+                    <div class="mb-2 border-black overflow-x-hidden px-2 py-2 flex items-center justify-center flex-col">
+                        <div id="usage-val" class="mt-3 text-2xl">
                         </div>
-                        <div id="usage-val" class="ml-2">
-
+                        <div class="w-7 h-7 mt-3">
+                            <img class="w-full h-full" id="cpuImage" src="../src/assets/CPU.png" alt="">
                         </div>
                     </div>
-                    <div
-                        class="my-2 border-black  px-2 py-2 flex items-center justify-center flex-row">
-                        <div>
-                            <img class="w-7 h-7 mr-5" src="../src/assets/Voltage.png" alt="">
+                    <div class="mb-3 border-black  px-2 py-2 flex items-center justify-center flex-col">
+                        <div class="">
+                            <img class="w-7 h-7" id="cpuVoltageImage" style="flex-shrink: 0;" src="../src/assets/Voltage.png" alt="">
                             <!-- <i class="fa-solid fa-bolt"></i> -->
                         </div>
-                        <div id="voltage-val">
+                        <div id="voltage-val" class="text-2xl">
 
                         </div>
                     </div>
@@ -259,8 +257,7 @@
             </div>
         </div>
         <div class="w-6/12 ml-2">
-            <div id="gpuName"
-                class="w-full bg-[#2D2D2D] text-center px-4 rounded-sm py-1 my-2 text-[#13C500] shadow-inner shadow-black">
+            <div id="gpuName" class="w-full text-center text-2xl mt-14 px-4 rounded-sm py-1 my-2 text-[#13C500]">
 
             </div>
             <div class="w-full flex items-center justify-center flex-col relative">
@@ -284,15 +281,17 @@
                         }
 
                         .alg,
-                        .atg{
+                        .atg {
                             fill: transparent;
                             stroke: #13C500;
                         }
+
                         .line {
                             stroke: #13C500;
                             stroke-width: .5rem;
                             fill: #13C500;
                         }
+
                         .st22 {
                             fill: #13C500;
                         }
@@ -409,36 +408,72 @@
                     <path class="st11 gpuTheme" id="gclock" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
         c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
                 </svg>
-                <div class="flex flex-col shadow-black absolute py-2 gpuTheme text-center">
-                    <div
-                        class="my-2 border-black  px-2 py-2 flex items-center justify-center flex-row">
+                <div class="flex flex-col shadow-black absolute px-8 py-2 gpuTheme text-center">
+                    <div class="mb-2 border-black overflow-x-hidden px-2 py-2 flex items-center justify-center flex-col">
+                        <div id="gusage-val" class="text-2xl mt-3">
+
+                        </div>
                         <div>
-                            <img class="w-7 h-7" src="../src/assets/GPU NVIDIA.png" alt="">
+                            <img class="w-7 h-7 mt-3" id="gpuImage" src="../src/assets/GPU NVIDIA.png" alt="">
                             <!-- <i class="fa-solid fa-bolt"></i> -->
                         </div>
-                        <div id="gusage-val" class="ml-2">
+                        
+                    </div>
+                    <div class="mb-3 border-black  px-2 py-2 flex items-center justify-center flex-col">
+                        <div>
+                            <img class="w-7 h-7" id="gpuVoltageImage" src="../src/assets/Voltage.png" alt="">
+                            <!-- <i class="fa-solid fa-bolt"></i> -->
+                        </div>
+                        <div id="gvoltage-val" class="text-2xl">
 
                         </div>
                     </div>
-                    <div
-                        class="my-2 border-black  px-2 py-2 flex items-center justify-center flex-row">
-                        <div>
-                            <img class="w-7 h-7" src="../src/assets/Voltage.png" alt="">
-                            <!-- <i class="fa-solid fa-bolt"></i> -->
-                        </div>
-                        <div id="gvoltage-val" class="ml-2">
-
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="text-[#13C500] gpuTheme text-xl absolute bottom-[1.5rem] gpuTheme" id="gclock-val">
                     0
                 </div>
             </div>
+            
+        </div>
+        
+    </div>
+    <style>
+        .of1 {
+            transform: scaleX(-1);
+        }
+    </style>
+    <div class="w-full flex items-center justify-between mt-5">
+        <div class="flex flex-row items-center justify-center w-6/12 px-4">
+            <div class="text-[#209EE7] text-[1.3rem]" id="cpuTemp">
+                42 °C
+            </div>
+            <div class="w-[60%] relative rounded-xl right-0 text-[#209EE7] ml-3">
+                <svg height="100" width="100%" xmlns="http://www.w3.org/2000/svg">
+                    <rect id="cpuTempBar" x="0" y="37" width="100%" height="25" rx="10" ry="10" fill="#209EE7"/>
+                </svg>
+            </div>
+            <div>
+                <img id="cpuTempImage" class="w-12 h-12 of1" src="../src/assets/1x/TEMP Blue.png" alt="">
+            </div>
+        </div>
+        <div class="flex flex-row items-center justify-center w-6/12 px-4">
+            <div class="text-[#209EE7]">
+                <img id="gpuTempImage" class="w-12 h-12" src="../src/assets/1x/TEMP Blue.png" alt="">
+            </div>
+            <div class="w-[60%] relative rounded-xl right-0 text-[#209EE7] mr-3">
+                <svg height="100" width="100%" xmlns="http://www.w3.org/2000/svg">
+                    <rect id="gpuTempBar" x="0" y="37" width="100%" height="25" rx="10" ry="10" fill="#209EE7"/>
+                </svg>
+            </div>
+            <div class="text-[#209EE7] text-[1.3rem]" id="gpuTemp">
+                42 °C
+            </div>
         </div>
     </div>
-    <div class="w-full flex items-center justify-center relative">
-        <?xml version="1.0" encoding="utf-8"?>
+    <div class="w-full flex items-center justify-between relative">
+        <div class="w-6/12 flex items-center justify-center mt-[5.5rem]">
+            <?xml version="1.0" encoding="utf-8"?>
         <svg class="a absolute w-52" version="1.1" id="katman_1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
             style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
@@ -492,6 +527,64 @@
         </svg>
         <div class="text-[#c57d00] text-2xl absolute" id="mem-val">
             0
+        </div>
+        </div>
+        <div class="w-6/12 flex items-center justify-center mt-[5.5rem]">
+            <?xml version="1.0" encoding="utf-8"?>
+        <svg class="a absolute w-52" version="1.1" id="katman_1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
+            style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
+            <style type="text/css">
+                .st000 {
+                    fill: none;
+                    stroke: #9ac500;
+                    stroke-width: 40;
+                    stroke-miterlimit: 50;
+                }
+
+                .st111 {
+                    fill: none;
+                    stroke: #c57d00;
+                    stroke-width: 60;
+                    stroke-miterlimit: 10;
+                }
+
+                .st222 {
+                    fill: #13C500;
+                }
+            </style>
+            <defs>
+                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="50" />
+                </filter>
+            </defs>
+            <path class="st000" d="M780.49,509.8c0-7.71-0.31-15.34-0.92-22.89c-0.61-7.55-1.52-15.02-2.72-22.39c-1.16-7.16-2.6-14.23-4.29-21.2
+        c-1.7-6.97-3.65-13.83-5.86-20.59c-2.77-8.5-5.94-16.81-9.49-24.93s-7.46-16.04-11.73-23.73c-4.12-7.44-8.58-14.66-13.34-21.67
+        c-4.76-7-9.83-13.78-15.19-20.31c-5.56-6.78-11.43-13.29-17.6-19.51c-6.16-6.22-12.61-12.16-19.33-17.78
+        c-8.27-6.92-16.95-13.38-25.99-19.33s-18.45-11.39-28.18-16.27c-7.47-3.75-15.13-7.18-22.96-10.27c-7.83-3.09-15.84-5.83-24-8.21
+        c-12.48-3.65-25.33-6.45-38.47-8.34c-13.14-1.89-26.57-2.87-40.24-2.87H500h-0.21c-13.51,0-26.8,0.96-39.8,2.8
+        c-13,1.85-25.72,4.59-38.08,8.16c-11.44,3.3-22.58,7.31-33.37,11.98c-10.79,4.67-21.23,10-31.26,15.94
+        c-8.53,5.05-16.77,10.53-24.68,16.42s-15.51,12.19-22.75,18.87c-9.58,8.83-18.54,18.32-26.81,28.4
+        c-8.27,10.08-15.86,20.74-22.68,31.92c-7.9,12.94-14.78,26.58-20.52,40.79c-5.75,14.21-10.36,29.01-13.73,44.27
+        c-2.16,9.78-3.81,19.74-4.92,29.88c-1.11,10.13-1.68,20.42-1.68,30.85" />
+            <path class="st000" d="M780.49,514.59c0,7.71-0.31,15.34-0.92,22.89c-0.61,7.55-1.52,15.02-2.72,22.39c-1.16,7.16-2.6,14.23-4.29,21.2
+        c-1.7,6.97-3.65,13.83-5.86,20.59c-2.77,8.5-5.94,16.81-9.49,24.93c-3.54,8.12-7.46,16.04-11.73,23.73
+        c-4.12,7.44-8.58,14.66-13.34,21.67c-4.76,7-9.83,13.78-15.19,20.31c-5.56,6.78-11.43,13.29-17.6,19.51
+        c-6.16,6.22-12.61,12.16-19.33,17.78c-8.27,6.92-16.95,13.38-25.99,19.33s-18.45,11.39-28.18,16.27
+        c-7.47,3.75-15.13,7.18-22.96,10.27c-7.83,3.09-15.84,5.83-24,8.21c-12.48,3.65-25.33,6.45-38.47,8.34
+        c-13.14,1.89-26.57,2.87-40.24,2.87H500h-0.21c-13.51,0-26.8-0.96-39.8-2.8c-13-1.85-25.72-4.59-38.08-8.16
+        c-11.44-3.3-22.58-7.31-33.37-11.98c-10.79-4.67-21.23-10-31.26-15.94c-8.53-5.05-16.77-10.53-24.68-16.42
+        c-7.92-5.89-15.51-12.19-22.75-18.87c-9.58-8.83-18.54-18.32-26.81-28.4c-8.27-10.08-15.86-20.74-22.68-31.92
+        c-7.9-12.94-14.78-26.58-20.52-40.79c-5.75-14.21-10.36-29.01-13.73-44.27c-2.16-9.78-3.81-19.74-4.92-29.88
+        c-1.11-10.13-1.68-20.42-1.68-30.85" />
+            <path class="st111" id="gmemg" filter="url(#glow)" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
+        c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
+            <path class="st111" id="gmem" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
+        c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
+        </svg>
+        <div class="text-[#c57d00] text-2xl absolute" id="gmem-val">
+            0
+        </div>
         </div>
     </div>
     <style>
