@@ -3,9 +3,6 @@ const { remote, ipcRenderer } = require('electron');
 const blobToBuffer = require('blob-to-buffer');
 const si = require('systeminformation');
 
-si.graphics().then(data => {
-  console.log(data);
-})
 
 let gpuImage = document.getElementById('gpuImage');
 let cpuImage = document.getElementById('cpuImage');
@@ -20,7 +17,8 @@ let gpuTempBar = document.getElementById('gpuTempBar');
 let gline = document.getElementById('gline');
 
 let isLoaded = false;
-let isRamLoaded = false
+let isRamLoaded = false;
+let isVramLoaded = false;
 
 let colors = {
   nvidia: '#13C500',
@@ -145,22 +143,37 @@ const events = {
     3: function render(parsed) {
       let hardwareName = parsed.hwn;
       if (hardwareName.includes('NVIDIA')) {
+        if (isVramLoaded) {
+
+        } else {
+          si.graphics().then(data => {
+            document.getElementById('gmem-val').textContent = data.controllers[1].vram / 1024 + ' GB';
+          })
+          isVramLoaded = true
+        }
         gpuImage.src = colors.gpuNvidia;
         gpuVoltageImage.src = colors.voltageNvidia;
         indicator.setGpuTheme('#13C500', hardwareName)
         // console.log(parsed['GPU Core']);
         // indicator.drawIndicator('voltage-val', 'voltage', parsed['GPU Core'], 1.600, 'v')
         indicator.drawGpuIndicator('clock-val', 'clock', parsed['GPU Core'], parsed['GPU CoreMax'], ' Mhz')
-        indicator.drawIndicator('gmem-val', 'gmem', Math.floor(parsed['GPU Memory'] / parsed['GPU MemoryMax'] * 100), 100, '%')
+        indicator.drawGpuMemIndi('gmem-clock', 'gmem', Math.floor(parsed['GPU Memory'] / parsed['GPU MemoryMax'] * 100), 100, ' MHz', Math.floor(parsed['GPU Memory']))
       } else {
+        if (isVramLoaded) {
+
+        } else {
+          si.graphics().then(data => {
+            document.getElementById('gmem-val').textContent = data.controllers[1].vram / 1024 + ' GB';
+          })
+          isVramLoaded = true
+        }
         gpuImage.src = colors.gpuAmd;
         gpuVoltageImage.src = colors.voltageAmd;
         indicator.setGpuTheme('red', hardwareName)
         // console.log(parsed['GPU Core']);
         // indicator.drawIndicator('voltage-val', 'voltage', parsed['GPU Core'], 1.600, 'v')
         indicator.drawGpuIndicator('clock-val', 'clock', parsed['GPU Core'], parsed['GPU CoreMax'], ' Mhz')
-        indicator.drawIndicator('gmem-val', 'gmem', Math.floor(parsed['GPU Memory'] / parsed['GPU MemoryMax'] * 100), 100, '%')
-
+        indicator.drawGpuMemIndi('gmem-clock', 'gmem', Math.floor(parsed['GPU Memory'] / parsed['GPU MemoryMax'] * 100), 100, ' MHz', Math.floor(parsed['GPU Memory']))
       }
     },
     4: function render(parsed) {
@@ -205,16 +218,22 @@ const events = {
         indicator.setGpuTheme('red', hardwareName)
         // indicator.drawGpuIndicator('usage-val', 'usage', Math.floor(parsed['GPU Core']), parsed['GPU CoreMax'], '%')
       }
+    },
+    12: function render(parsed) {
+      if (parsed.hardwareName.includes('NVIDIA')) {
+
+      } else {
+
+      }
     }
   },
   MEM: {
     12: function render(parsed) {
-      indicator.drawMemoryIndi('mem-val', 'mem', Math.floor(parsed['Memory Used'] / (parsed['Memory Used'] + parsed['Memory Available']) * 100), 100, '%', parsed['Memory Used'])
+      indicator.drawMemoryIndi('mem-val', 'mem', Math.floor(parsed['Memory Used'] / (parsed['Memory Used'] + parsed['Memory Available']) * 100), 100, ' GB', parsed['Memory Used'])
       if (isRamLoaded) {
 
       } else {
         si.memLayout().then(data => {
-          console.log(data);
           document.getElementById('mem-clock').textContent = data[0].clockSpeed
         })
         isRamLoaded = true
@@ -289,7 +308,17 @@ class Incicator {
     let glow = document.getElementById(id + 'g')
     let valText = document.getElementById(textId)
     let length = element.getTotalLength();
-    valText.textContent = pure.toFixed(3) + ' GB'
+    valText.textContent = pure.toFixed(3) + icon
+    // console.log(value / 100 * 100);
+    element.style.strokeDashoffset = length - value / max * length;
+    glow.style.strokeDashoffset = length - value / max * length;
+  }
+  drawGpuMemIndi(textId, id, value, max, icon, pure) {
+    let element = document.getElementById(id)
+    let glow = document.getElementById(id + 'g')
+    let valText = document.getElementById(textId)
+    let length = element.getTotalLength();
+    valText.textContent = Math.floor(pure)
     // console.log(value / 100 * 100);
     element.style.strokeDashoffset = length - value / max * length;
     glow.style.strokeDashoffset = length - value / max * length;
