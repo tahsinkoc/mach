@@ -16,6 +16,9 @@ let gpuTemp = document.getElementById('gpuTemp');
 let gpuTempBar = document.getElementById('gpuTempBar');
 let gline = document.getElementById('gline');
 
+let isLoaded = false;
+
+
 let colors = {
   nvidia: '#13C500',
   amd: 'red',
@@ -51,9 +54,6 @@ const events = {
       let hardwareName = parsed.hwn
       // console.log(parsed);
       if (hardwareName.includes('AMD')) {
-        cpuImage.src = colors.proccesAmd;
-        cpuVoltageImage.src = colors.voltageAmd;
-
         indicator.setCpuTheme('red', hardwareName)
         indicator.drawDottedVoltageIndicator('voltage-val', 'voltage', Math.floor(parsed['Core (SVI2 TFN)']), Math.floor(parsed['Core (SVI2 TFN)']), 'V', document.getElementsByClassName('al'), colors.amd)
         // indicator.drawIndicator('voltage-val', 'voltage', parsed['Core (SVI2 TFN)'], parsed['Core (SVI2 TFN)Max'], ' V')
@@ -72,9 +72,6 @@ const events = {
       let hardwareName = parsed.hwn
       // console.log(parsed);
       if (hardwareName.includes('AMD')) {
-        cpuImage.src = colors.proccesAmd;
-        cpuVoltageImage.src = colors.voltageAmd;
-        indicator.setCpuTheme('red', hardwareName)
         indicator.drawIndicator('clock-val', 'clock', Math.floor(parsed['Core #1']), Math.floor(parsed['Core #1Max']), 'Mhz')
       } else {
         cpuImage.src = colors.processIntel;
@@ -89,15 +86,10 @@ const events = {
       let hardwareName = parsed.hwn
       // console.log(parsed);
       if (hardwareName.includes('AMD')) {
-        cpuImage.src = colors.proccesAmd;
-        cpuVoltageImage.src = colors.voltageAmd;
-        cpuTempImage.src = colors.tempAmd;
-        cpuTemp.style.color = colors.amd;
-        cpuTempBar.style.fill = colors.amd
+
         cpuTempBar.style.width = Math.floor(parsed['Core #1']) / 105 * 100 + '%'
         cpuTemp.textContent = Math.floor(parsed['Core #1']) + ' °C'
 
-        indicator.setCpuTheme('red', hardwareName)
         // indicator.drawIndicator('temp-val', 'temp', Math.floor(parsed['Core #1']))
       } else {
         cpuImage.src = colors.processIntel;
@@ -115,8 +107,7 @@ const events = {
       let hardwareName = parsed.hwn
       // console.log(parsed);
       if (hardwareName.includes('AMD')) {
-        cpuImage.src = colors.proccesAmd;
-        cpuVoltageImage.src = colors.voltageAmd;
+
         indicator.setCpuTheme('red', hardwareName)
         indicator.drawDottedIndicator('usage-val', 'usage', Math.floor(parsed['CPU Total']), 100, '%', document.getElementsByClassName('at'), colors.amd)
 
@@ -224,6 +215,24 @@ class Incicator {
     let cpuStrokes = document.getElementsByClassName('cpuTheme');
     let cpuName = document.getElementById('cpuName');
     let line = document.getElementById('line');
+    if (!isLoaded && color === 'red') {
+      cpuImage.src = colors.proccesAmd;
+      cpuVoltageImage.src = colors.voltageAmd;
+      cpuTempImage.src = colors.tempAmd;
+      cpuTemp.style.color = colors.amd;
+      cpuTempBar.style.fill = colors.amd
+      cpuTempBar.style.stroke = colors.amd
+      isLoaded = true
+    } else if (!isLoaded && color === '#209EE7') {
+      cpuImage.src = colors.processIntel;
+      cpuVoltageImage.src = colors.voltageIntel;
+      cpuTempImage.src = colors.tempIntel;
+      cpuTemp.style.color = colors.intel;
+      cpuTempBar.style.fill = colors.intel;
+      isLoaded = true
+    } else if (isLoaded) {
+
+    }
     line.style.stroke = color;
     cpuName.style.color = color
     cpuName.textContent = cpuModel;
