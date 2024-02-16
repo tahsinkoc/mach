@@ -82,17 +82,19 @@
     <div
         class="appBar w-full bg-[#111111] h-10 flex items-center justify-between px-4  text-[#828282] fixed top-0 z-[99999]">
         <div class="text-[2rem]">
-            M
+            <img class="w-16" src="../src/assets/mach.svg" alt="">
+
         </div>
         <div class="text-[2rem] flex items-center">
-            <p class="ls">
-                MACH
+            <p class="">
+                <img class="h-5" src="../src/assets/mach logo.svg" alt="">
+
             </p>
-            <p class="lss">
+            <!-- <p class="lss">
                 v1
-            </p>
+            </p> -->
         </div>
-        <div class="text-[1.6rem] no-drag text-white">
+        <div class="text-[1.rem] no-drag text-white">
             <button id="minimize-btn" class="cursor-pointer mr-4">
                 <i class="fa-solid fa-minus hov-white"></i>
             </button>
@@ -274,7 +276,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-[#209EE7] cpuTheme text-xl absolute bottom-[1.5rem]" id="clock-val">
+                    <div class="text-[#209EE7] cpuTheme text-2xl absolute bottom-[1.5rem]" id="clock-val">
                         0
                     </div>
                 </div>
@@ -550,7 +552,13 @@
                     <path class="st111" id="mem" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
             c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
                 </svg>
-                <div class="text-[#c57d00] text-2xl absolute" id="mem-val">
+                <div class="text-[#c57d00] text-2xl py-4 absolute flex items-center justify-center flex-col py-16">
+                    <img class="w-12" src="../src/assets/1x/RAM.png" alt="">
+                    <div class="text-[#c57d00] text-2xl" id="mem-clock">
+                        0
+                    </div>
+                </div>
+                <div class="text-[#c57d00] bottom-[-8rem] text-2xl py-4 absolute" id="mem-val">
                     0
                 </div>
             </div>
@@ -562,20 +570,20 @@
                     <style type="text/css">
                         .st000 {
                             fill: none;
-                            stroke: #9ac500;
+                            stroke: #f39200;
                             stroke-width: 40;
                             stroke-miterlimit: 50;
                         }
 
                         .st111 {
                             fill: none;
-                            stroke: #c57d00;
+                            stroke: #f39200;
                             stroke-width: 60;
                             stroke-miterlimit: 10;
                         }
 
                         .st222 {
-                            fill: #13C500;
+                            fill: #f39200;
                         }
                     </style>
                     <defs>
@@ -607,7 +615,13 @@
                     <path class="st111" id="gmem" d="M632.46,831.34c124.64-51.84,212.28-174.79,212.28-318.2c0-190.25-154.23-344.48-344.48-344.48h-0.51
             c-190.25,0-344.48,154.23-344.48,344.48c0,143.41,87.64,266.36,212.28,318.2" />
                 </svg>
-                <div class="text-[#c57d00] text-2xl absolute" id="gmem-val">
+                <div class="text-[#c57d00] text-2xl py-4 absolute flex items-center justify-center flex-col py-16">
+                    <img class="w-12" src="../src/assets/1x/RAM.png" alt="">
+                    <div class="text-[#c57d00] text-2xl" id="gmem-clock">
+                        0
+                    </div>
+                </div>
+                <div class="text-[#c57d00] bottom-[-8rem] text-2xl py-4 absolute" id="gmem-val">
                     0
                 </div>
             </div>

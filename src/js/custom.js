@@ -3,6 +3,9 @@ const { remote, ipcRenderer } = require('electron');
 const blobToBuffer = require('blob-to-buffer');
 const si = require('systeminformation');
 
+si.graphics().then(data => {
+  console.log(data);
+})
 
 let gpuImage = document.getElementById('gpuImage');
 let cpuImage = document.getElementById('cpuImage');
@@ -17,7 +20,7 @@ let gpuTempBar = document.getElementById('gpuTempBar');
 let gline = document.getElementById('gline');
 
 let isLoaded = false;
-
+let isRamLoaded = false
 
 let colors = {
   nvidia: '#13C500',
@@ -35,9 +38,9 @@ let colors = {
   tempAmd: '../src/assets/1x/TEMP Red.png',
 }
 
-si.mem().then(item => {
-  // console.log(item);
-})
+// si.mem().then(item => {
+//   // console.log(item);
+// })
 
 document.getElementById('minimize-btn').addEventListener('click', () => {
   ipcRenderer.invoke('minimize', 'mini')
@@ -54,8 +57,8 @@ const events = {
       let hardwareName = parsed.hwn
       // console.log(parsed);
       if (hardwareName.includes('AMD')) {
-        indicator.setCpuTheme('red', hardwareName)
-        indicator.drawDottedVoltageIndicator('voltage-val', 'voltage', Math.floor(parsed['Core (SVI2 TFN)']), Math.floor(parsed['Core (SVI2 TFN)']), 'V', document.getElementsByClassName('al'), colors.amd)
+        indicator.setCpuTheme('red', hardwareName.replace('with Radeon Vega Mobile Gfx', ''))
+        indicator.drawDottedVoltageIndicator('voltage-val', 'voltage', parsed['Core (SVI2 TFN)'].toFixed(3), Math.floor(parsed['Core (SVI2 TFN)']), 'V', document.getElementsByClassName('al'), colors.amd)
         // indicator.drawIndicator('voltage-val', 'voltage', parsed['Core (SVI2 TFN)'], parsed['Core (SVI2 TFN)Max'], ' V')
       } else {
         let colored = '#209EE7'
@@ -108,7 +111,7 @@ const events = {
       // console.log(parsed);
       if (hardwareName.includes('AMD')) {
 
-        indicator.setCpuTheme('red', hardwareName)
+        // indicator.setCpuTheme('red', hardwareName)
         indicator.drawDottedIndicator('usage-val', 'usage', Math.floor(parsed['CPU Total']), 100, '%', document.getElementsByClassName('at'), colors.amd)
 
         // indicator.drawIndicator('usage-val', 'usage', Math.floor(parsed['CPU Total']), 100, '%')
@@ -156,6 +159,8 @@ const events = {
         // console.log(parsed['GPU Core']);
         // indicator.drawIndicator('voltage-val', 'voltage', parsed['GPU Core'], 1.600, 'v')
         indicator.drawGpuIndicator('clock-val', 'clock', parsed['GPU Core'], parsed['GPU CoreMax'], ' Mhz')
+        indicator.drawIndicator('gmem-val', 'gmem', Math.floor(parsed['GPU Memory'] / parsed['GPU MemoryMax'] * 100), 100, '%')
+
       }
     },
     4: function render(parsed) {
@@ -199,6 +204,20 @@ const events = {
         indicator.drawDottedGpuVoltageIndicator('gusage-val', 'gusage', Math.floor(parsed['GPU Core']), 100, '%', document.getElementsByClassName('atg'), colors.amd)
         indicator.setGpuTheme('red', hardwareName)
         // indicator.drawGpuIndicator('usage-val', 'usage', Math.floor(parsed['GPU Core']), parsed['GPU CoreMax'], '%')
+      }
+    }
+  },
+  MEM: {
+    12: function render(parsed) {
+      indicator.drawMemoryIndi('mem-val', 'mem', Math.floor(parsed['Memory Used'] / (parsed['Memory Used'] + parsed['Memory Available']) * 100), 100, '%', parsed['Memory Used'])
+      if (isRamLoaded) {
+
+      } else {
+        si.memLayout().then(data => {
+          console.log(data);
+          document.getElementById('mem-clock').textContent = data[0].clockSpeed
+        })
+        isRamLoaded = true
       }
     }
   }
@@ -261,6 +280,16 @@ class Incicator {
     let valText = document.getElementById(textId)
     let length = element.getTotalLength();
     valText.textContent = value + icon
+    // console.log(value / 100 * 100);
+    element.style.strokeDashoffset = length - value / max * length;
+    glow.style.strokeDashoffset = length - value / max * length;
+  }
+  drawMemoryIndi(textId, id, value, max, icon, pure) {
+    let element = document.getElementById(id)
+    let glow = document.getElementById(id + 'g')
+    let valText = document.getElementById(textId)
+    let length = element.getTotalLength();
+    valText.textContent = pure.toFixed(3) + ' GB'
     // console.log(value / 100 * 100);
     element.style.strokeDashoffset = length - value / max * length;
     glow.style.strokeDashoffset = length - value / max * length;
@@ -391,11 +420,12 @@ socket.addEventListener('message', (event) => {
       let parsed = JSON.parse(ta)
       // console.log(parsed);
 
+
       events[parsed.hw][parsed.type](parsed.data)
 
-      si.mem().then(data => {
-        indicator.drawIndicator('mem-val', 'mem', Math.floor(data.used / data.total * 100), 100, '%')
-      })
+      // si.mem().then(data => {
+      //   indicator.drawIndicator('mem-val', 'mem', Math.floor(data.used / data.total * 100), 100, '%')
+      // })
     };
     reader.readAsText(receivedData);
   } else {
