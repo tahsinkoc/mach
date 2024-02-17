@@ -3,6 +3,7 @@ const WebSocket = require('ws')
 const { WebSocketServer } = require('ws')
 const path = require('node:path')
 const si = require('systeminformation');
+const { spawn } = require('child_process');
 
 
 
@@ -10,6 +11,7 @@ const si = require('systeminformation');
 const server = new WebSocketServer({ port: 3000 })
 const clients = []
 server.on('connection', (socket) => {
+
     console.log('Client connected');
     // si.memLayout().then(item => {
     //     console.log(item);
@@ -38,9 +40,13 @@ server.on('connection', (socket) => {
 });
 
 console.log('WebSocket server is running on port 3000');
+const exePath = './winn/march.exe';
+
+const ch = spawn(exePath);
 
 function createWindow() {
     const win = new BrowserWindow({
+        icon: './icon.ico',
         minWidth: 860,
         maxWidth: 860,
         height: 981.5,
@@ -48,7 +54,6 @@ function createWindow() {
         maxHeight: 981.5,
         webPreferences: {
             // preload: path.join(__dirname, 'preload.js'),
-            devTools: true,
             nodeIntegration: true,
             contextIsolation: false,
             // enableRemoteModule: true,
@@ -59,7 +64,7 @@ function createWindow() {
 
     win.loadFile('./windows/index.html')
 
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
     ipcMain.handle('minimize', async (event, ...args) => {
         win.minimize()
     })
@@ -78,6 +83,7 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', () => {
+    ch.kill('SIGINT')
     if (process.platform !== 'darwin') {
         app.quit()
     }

@@ -1,7 +1,7 @@
 {
   "name": "mach",
   "version": "1.0.0",
-  "description": "",
+  "description": "MACH ardware monitoring",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
-  "author": "",
+  "author": "Tahsin Ozgur KOC",
   "license": "ISC",
   "dependencies": {
     "@electron/remote": "^2.1.2",
