@@ -41,3 +41,21 @@ Backend (C#):
 
 - C# application for real-time hardware and sensor data collection.
 - Integration of a WebSocket server for transmitting data to the Electron application.
+
+---
+
+<img src="https://github.com/tahsinkoc/mach/blob/5773db2e7e0d08182966b8c1711b9557ffe4cdd2/src/assets/mach%20logo.svg" width="200px" /> 
+
+---
+**NOTES**
+- Optimization of the parser may still be in development.
+- I still have some issues with certificates in Windows.
+- I'm open to ideas to solve these problems or improve the app.
+
+Developer
+
+Tahsin Özgür KOÇ 
+tahsinkocw@gmail.com
+
+UI Components designed by Ünsal KOÇ
+
