@@ -49,6 +49,10 @@ Backend (C#):
 <img src="https://github.com/tahsinkoc/mach/blob/5773db2e7e0d08182966b8c1711b9557ffe4cdd2/src/assets/mach%20logo.svg" width="200px" /> 
 
 ---
+
+**Sımply Download**
+[Download mach-v0.1.0-pre-alpha](https://github.com/tahsinkoc/mach/releases/tag/MACH-v0.1.0-pre-alpha)
+
 **NOTES**
 - Optimization of the parser may still be in development.
 - I still have some issues with certificates in Windows.
