@@ -80,7 +80,6 @@ const events = {
         let colored = '#209EE7'
         indicator.drawIndicator('clock-val', 'clock', Math.floor(parsed['CPU Core #1']), Math.floor(parsed['CPU Core #1Max']), ' Mhz')
       }
-
     },
     4: function render(parsed) {
 
@@ -88,8 +87,9 @@ const events = {
       // console.log(parsed);
       if (hardwareName.includes('AMD')) {
 
-        cpuTempBar.style.width = Math.floor(parsed['Core #1']) / 105 * 100 + '%'
-        cpuTemp.textContent = Math.floor(parsed['Core #1']) + ' °C'
+
+        cpuTempBar.style.width = Math.floor(parsed['Core (Tctl/Tdie)']) / 105 * 100 + '%'
+        cpuTemp.textContent = Math.floor(parsed['Core (Tctl/Tdie)']) + ' °C'
 
         // indicator.drawIndicator('temp-val', 'temp', Math.floor(parsed['Core #1']))
       } else {
@@ -146,17 +146,17 @@ const events = {
         if (isVramLoaded) {
 
         } else {
-          
+
           si.graphics().then(data => {
             console.log(data.controllers[0]);
             if (data.controllers[1] === undefined) {
-              document.getElementById('gmem-val').textContent = (data.controllers[0].memoryUsed / 1024 ).toFixed(3) + ' GB';
+              document.getElementById('gmem-val').textContent = (data.controllers[0].memoryUsed / 1024).toFixed(3) + ' GB';
               indicator.drawGpuMemIndi('gmem-clock', 'gmem', Math.floor(data.controllers[0].memoryUsed / data.controllers[0].memoryTotal * 100), 100, '', Math.floor(parsed['GPU Memory']))
-            }else {
+            } else {
               document.getElementById('gmem-val').textContent = data.controllers[1].vram / 1024 + ' GB';
             }
-              // document.getElementById('gmem-val').textContent = ;
-              // console.log(data.controllers[0]);
+            // document.getElementById('gmem-val').textContent = ;
+            // console.log(data.controllers[0]);
           })
           // isVramLoaded = true
         }
@@ -332,7 +332,7 @@ class Incicator {
     element.style.strokeDashoffset = length - value / max * length;
     glow.style.strokeDashoffset = length - value / max * length;
   }
-  drawGpuMemV(id, value, max){
+  drawGpuMemV(id, value, max) {
     let element = document.getElementById(id)
     let glow = document.getElementById(id + 'g')
     let length = element.getTotalLength();
