@@ -22,7 +22,7 @@ MACH is a hardware monitoring application that displays real-time performance me
 - Provides details on the brand and model of the processor and graphics card.
 - Features a red-themed interface for AMD processors, blue-themed for Intel processors.
 - Utilizes green-themed interface for NVIDIA graphics cards, and red-themed for AMD graphics cards.
-- Sleek and user-friendly UI design.
+- Sleek and user-friendly UI design..
 
 ---
 
