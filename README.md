@@ -4,7 +4,7 @@
 
 **Overview**
 
-MACH is a hardware monitoring application that displays real-time performance metrics of essential computer components, including the processor, graphics card, RAM, and more. With a user-friendly interface and customizable themes, MACH helps you keep track of your computer's health.
+MACH is a hardware monitoring application that displays real-time performance metrics of essential computer components, including the processor, graphics card, RAM, and more. With a user-friendly interface and customizable themes, MACH helps you keep track of your computer's health..
 
 <img src="src/assets/1.png"/>
 
